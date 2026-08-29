@@ -78,10 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Decision Debate Agent" },
-      { name: "description", content: "Three perspectives argue your decision. You make the call." },
+      {
+        name: "description",
+        content: "Three perspectives argue your decision. You make the call.",
+      },
       { name: "author", content: "Decision Debate Agent" },
       { property: "og:title", content: "Decision Debate Agent" },
-      { property: "og:description", content: "Three perspectives argue your decision. You make the call." },
+      {
+        property: "og:description",
+        content: "Three perspectives argue your decision. You make the call.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@DecisionDebate" },

@@ -11,9 +11,15 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Decision Debate Agent" },
-      { name: "description", content: "Three perspectives argue your decision. You make the call." },
+      {
+        name: "description",
+        content: "Three perspectives argue your decision. You make the call.",
+      },
       { property: "og:title", content: "Decision Debate Agent" },
-      { property: "og:description", content: "Three perspectives argue your decision. You make the call." },
+      {
+        property: "og:description",
+        content: "Three perspectives argue your decision. You make the call.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -57,7 +63,15 @@ const ACCENT_STYLES = {
   },
 };
 
-function PerspectiveCard({ perspective, content, index }: { perspective: Perspective; content: string; index: number }) {
+function PerspectiveCard({
+  perspective,
+  content,
+  index,
+}: {
+  perspective: Perspective;
+  content: string;
+  index: number;
+}) {
   const styles = ACCENT_STYLES[perspective.accent];
 
   return (
@@ -96,7 +110,9 @@ function LoadingState() {
     <section className="mt-16 animate-rise" aria-live="polite" aria-busy="true">
       <div className="mb-6 flex items-center gap-4">
         <span className="h-px flex-1 bg-ink/10" />
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">The briefs</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">
+          The briefs
+        </span>
         <span className="h-px flex-1 bg-ink/10" />
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -172,16 +188,20 @@ function Index() {
       const data = (await response.json()) as DebateResponse;
       setResult(data);
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Something went wrong while running the debate.";
+      const message =
+        err instanceof Error ? err.message : "Something went wrong while running the debate.";
       setError(message);
     } finally {
       setLoading(false);
     }
   };
 
-  const retryLabel = result && result.verification_retries > 0
-    ? "Revised " + (result.verification_retries === 1 ? "once" : result.verification_retries + " times") + " after review"
-    : null;
+  const retryLabel =
+    result && result.verification_retries > 0
+      ? "Revised " +
+        (result.verification_retries === 1 ? "once" : result.verification_retries + " times") +
+        " after review"
+      : null;
 
   return (
     <div className="min-h-screen bg-cream font-sans text-ink antialiased">
@@ -237,7 +257,9 @@ function Index() {
           <div className="mx-auto mt-8 max-w-[640px] animate-rise">
             <Alert variant="destructive" className="rounded-2xl bg-destructive/15">
               <AlertCircle className="size-4 text-destructive" />
-              <AlertTitle className="font-serif text-destructive">Could not run the debate</AlertTitle>
+              <AlertTitle className="font-serif text-destructive">
+                Could not run the debate
+              </AlertTitle>
               <AlertDescription className="text-foreground/90">{error}</AlertDescription>
             </Alert>
           </div>
@@ -251,7 +273,9 @@ function Index() {
           <section className="mt-16 animate-rise">
             <div className="mb-6 flex items-center gap-4">
               <span className="h-px flex-1 bg-ink/10" />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">The briefs</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">
+                The briefs
+              </span>
               <span className="h-px flex-1 bg-ink/10" />
             </div>
 
@@ -272,7 +296,9 @@ function Index() {
               style={{ animationDelay: "0.35s" }}
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cream/70">Moderator&apos;s read</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cream/70">
+                  Moderator&apos;s read
+                </p>
                 {retryLabel && (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-cream/90">
                     {retryLabel}
@@ -282,19 +308,29 @@ function Index() {
               <ReactMarkdown
                 components={{
                   h1: ({ children }) => (
-                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">
+                      {children}
+                    </h3>
                   ),
                   h2: ({ children }) => (
-                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">
+                      {children}
+                    </h3>
                   ),
                   h3: ({ children }) => (
-                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">
+                      {children}
+                    </h3>
                   ),
                   p: ({ children }) => (
-                    <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-cream/85">{children}</p>
+                    <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-cream/85">
+                      {children}
+                    </p>
                   ),
                   ul: ({ children }) => (
-                    <ul className="mt-4 space-y-2 text-sm leading-relaxed text-cream/85">{children}</ul>
+                    <ul className="mt-4 space-y-2 text-sm leading-relaxed text-cream/85">
+                      {children}
+                    </ul>
                   ),
                   li: ({ children }) => (
                     <li className="flex gap-2">
@@ -317,7 +353,9 @@ function Index() {
 
         {/* Footer */}
         <footer className="mt-14 text-center">
-          <p className="font-serif text-lg text-ink/80">This is a recommendation, not a decision.</p>
+          <p className="font-serif text-lg text-ink/80">
+            This is a recommendation, not a decision.
+          </p>
           <p className="mt-1 text-sm text-ink-soft">The choice stays with you.</p>
         </footer>
       </div>
