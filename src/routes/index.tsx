@@ -46,17 +46,14 @@ const ACCENT_STYLES = {
   optimist: {
     dot: "bg-optimist",
     glow: "shadow-[0_18px_44px_-28px_rgba(52,197,132,0.5)]",
-    badge: "text-optimist",
   },
   skeptic: {
     dot: "bg-skeptic",
     glow: "shadow-[0_18px_44px_-28px_rgba(242,163,60,0.5)]",
-    badge: "text-skeptic",
   },
   analyst: {
     dot: "bg-analyst",
     glow: "shadow-[0_18px_44px_-28px_rgba(91,163,224,0.5)]",
-    badge: "text-analyst",
   },
 };
 
@@ -74,24 +71,22 @@ function PerspectiveCard({ perspective, content, index }: { perspective: Perspec
         </span>
         <h3 className="font-serif text-xl font-medium">{perspective.label}</h3>
       </div>
-      <div className="prose prose-sm max-w-none text-muted-foreground prose-p:my-2 prose-ul:my-2 prose-li:my-1.5 marker:text-foreground/40">
-        <ReactMarkdown
-          components={{
-            ul: ({ children }) => (
-              <ul className="space-y-2.5 text-sm leading-relaxed text-ink-soft">{children}</ul>
-            ),
-            li: ({ children }) => (
-              <li className="flex gap-2.5">
-                <span className={`mt-1.5 size-1.5 shrink-0 rounded-full ${styles.dot}`} />
-                <span>{children}</span>
-              </li>
-            ),
-            p: ({ children }) => <p className="text-sm leading-relaxed text-ink-soft">{children}</p>,
-          }}
-        >
-          {content}
-        </ReactMarkdown>
-      </div>
+      <ReactMarkdown
+        components={{
+          ul: ({ children }) => (
+            <ul className="space-y-2.5 text-sm leading-relaxed text-ink-soft">{children}</ul>
+          ),
+          li: ({ children }) => (
+            <li className="flex gap-2.5">
+              <span className={`mt-1.5 size-1.5 shrink-0 rounded-full ${styles.dot}`} />
+              <span>{children}</span>
+            </li>
+          ),
+          p: ({ children }) => <p className="text-sm leading-relaxed text-ink-soft">{children}</p>,
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </article>
   );
 }
@@ -171,7 +166,7 @@ function Index() {
       });
 
       if (!response.ok) {
-        throw new Error(`The debate server returned ${response.status}. Please try again.`);
+        throw new Error("The debate server returned " + response.status + ". Please try again.");
       }
 
       const data = (await response.json()) as DebateResponse;
@@ -184,6 +179,10 @@ function Index() {
     }
   };
 
+  const retryLabel = result && result.verification_retries > 0
+    ? "Revised " + (result.verification_retries === 1 ? "once" : result.verification_retries + " times") + " after review"
+    : null;
+
   return (
     <div className="min-h-screen bg-cream font-sans text-ink antialiased">
       <div className="mx-auto max-w-[1080px] px-6 py-10 sm:py-16">
@@ -192,7 +191,10 @@ function Index() {
           <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-plum ring-1 ring-plum/10">
             A quiet room for hard calls
           </p>
-          <h1 className="font-serif text-[2.75rem] font-medium leading-[1.05] text-balance sm:text-6xl" style={{ letterSpacing: "-0.02em" }}>
+          <h1
+            className="font-serif text-[2.75rem] font-medium leading-[1.05] text-balance sm:text-6xl"
+            style={{ letterSpacing: "-0.02em" }}
+          >
             Decision Debate Agent
           </h1>
           <p className="mt-5 text-base leading-relaxed text-pretty text-ink-soft">
@@ -235,7 +237,7 @@ function Index() {
           <div className="mx-auto mt-8 max-w-[640px] animate-rise">
             <Alert variant="destructive" className="rounded-2xl border-destructive/20 bg-destructive/10">
               <AlertCircle className="size-4 text-destructive" />
-              <AlertTitle className="font-serif text-destructive">Couldn&apos;t run the debate</AlertTitle>
+              <AlertTitle className="font-serif text-destructive">Could not run the debate</AlertTitle>
               <AlertDescription className="text-foreground/80">{error}</AlertDescription>
             </Alert>
           </div>
@@ -271,26 +273,39 @@ function Index() {
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cream/70">Moderator&apos;s read</p>
-                {result.verification_retries > 0 && (
+                {retryLabel && (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-cream/90">
-                    Revised {result.verification_retries === 1 ? "once" : `${result.verification_retries} times"} after review
+                    {retryLabel}
                   </span>
                 )}
               </div>
-              <div className="prose prose-sm max-w-none prose-p:my-2 prose-ul:my-2 prose-li:my-1.5">
-                <ReactMarkdown
-                  components={{
-                    h1: ({ children }) => <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>,
-                    h2: ({ children }) => <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>,
-                    h3: ({ children }) => <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>,
-                    p: ({ children }) => <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-cream/85">{children}</p>,
-                    ul: ({ children }) => <ul className="mt-4 space-y-2 text-sm leading-relaxed text-cream/85">{children}</ul>,
-                    li: ({ children }) => <li className="flex gap-2"><span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-cream/70" /><span>{children}</span></li>,
-                  }}
-                >
-                  {result.moderator_output}
-                </ReactMarkdown>
-              </div>
+              <ReactMarkdown
+                components={{
+                  h1: ({ children }) => (
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                  ),
+                  h2: ({ children }) => (
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                  ),
+                  h3: ({ children }) => (
+                    <h3 className="mt-3 font-serif text-2xl font-medium leading-tight sm:text-3xl">{children}</h3>
+                  ),
+                  p: ({ children }) => (
+                    <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-cream/85">{children}</p>
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="mt-4 space-y-2 text-sm leading-relaxed text-cream/85">{children}</ul>
+                  ),
+                  li: ({ children }) => (
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-cream/70" />
+                      <span>{children}</span>
+                    </li>
+                  ),
+                }}
+              >
+                {result.moderator_output}
+              </ReactMarkdown>
               {result.retrieved_context && (
                 <p className="mt-6 border-t border-cream/10 pt-4 text-xs leading-relaxed text-cream/50">
                   Context retrieved: {result.retrieved_context}
