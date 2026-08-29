@@ -235,10 +235,10 @@ function Index() {
         {/* Error state */}
         {error && (
           <div className="mx-auto mt-8 max-w-[640px] animate-rise">
-            <Alert variant="destructive" className="rounded-2xl border-destructive/20 bg-destructive/10">
-              <AlertCircle className="size-4 text-destructive" />
-              <AlertTitle className="font-serif text-destructive">Could not run the debate</AlertTitle>
-              <AlertDescription className="text-foreground/80">{error}</AlertDescription>
+            <Alert className="rounded-2xl border-red-200 bg-red-50">
+              <AlertCircle className="size-4 text-red-600" />
+              <AlertTitle className="font-serif text-red-800">Could not run the debate</AlertTitle>
+              <AlertDescription className="text-red-700/90">{error}</AlertDescription>
             </Alert>
           </div>
         )}
