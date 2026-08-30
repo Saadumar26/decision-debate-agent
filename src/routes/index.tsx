@@ -34,6 +34,7 @@ interface DebateResponse {
   moderator_output: string;
   verification_retries: number;
   retrieved_context: string;
+  safety_category?: "normal" | "crisis" | "medical" | "harmful";
 }
 
 interface Perspective {
