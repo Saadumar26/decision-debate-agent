@@ -13,6 +13,60 @@ pipeline, evaluation harness, and submission documentation -- is under
 submission, start with [`backend/README.md`](backend/README.md) (same
 content as this file) and [`backend/REPRODUCTION.md`](backend/REPRODUCTION.md).
 
+**Live demo:** https://decision-debate-agent.lovable.app/ -- note the
+hosted frontend needs the Flask API running locally to actually work
+(see [Reproduction](backend/REPRODUCTION.md)); it's not connected to a
+hosted backend. For a working demo without local setup, see the
+[solution video] *(link added once recorded)*.
+
+---
+
+## Tech Stack
+
+| Layer | Tool | Why |
+|---|---|---|
+| Orchestration | **LangGraph** | Explicit fan-out (parallel personas), fan-in (moderator), and a conditional retry loop (verification) -- control flow a flat script can't express as cleanly |
+| LLM | **Google Gemini API** (free tier, `gemini-2.5-flash-lite` by default, configurable) | No-cost API access for the full build + evaluation |
+| Memory | **ChromaDB** + a custom local TF-IDF embedding function (`scikit-learn`) | Vector retrieval without a network dependency on a hosted embedding model (see Changelog Iteration 1); similarity-thresholded to avoid retrieving unrelated past decisions (Iteration 7) |
+| Backend API | **Flask** + `flask-cors` | Thin, stateless wrapper exposing the same `graph.py` pipeline used by the CLI/evaluation, so the UI never behaves differently from what was benchmarked |
+| Frontend | **React + TypeScript + Tailwind + shadcn/ui**, built with **Lovable** | Fast iteration on a polished UI without hand-writing frontend boilerplate |
+| Evaluation | Custom Python harness (`evaluate.py`) + a hand-designed rubric (`eval_data/rubric.md`) | No standard benchmark fit this task; scored manually per the hackathon's own guidance for open-ended tasks |
+
+## How It Works (System Workflow)
+
+```
+User decision
+     |
+     v
+[1] Safety check  --------------------> crisis/medical/harmful?
+     |  (normal)                              |
+     v                                        v
+[2] Retrieve similar past decisions      Fixed safety response
+     |  (memory, similarity-thresholded)      (debate skipped entirely)
+     v
+[3] Optimist, Skeptic, Analyst run in PARALLEL
+     |  (three independent LLM calls, same input)
+     v
+[4] Moderator synthesizes all three into one recommendation
+     |
+     v
+[5] Verification checks the draft is genuinely balanced + actionable
+     |          |
+     | (fail)   | (pass)
+     v          v
+  back to [4]   [6] Store outcome to memory, return result
+  (max 2 retries)
+```
+
+**Approach:** built agent-first, not UI-first -- the LangGraph pipeline,
+baseline comparison, and evaluation harness were built and tested from
+the command line before any UI existed, so the UI (added last,
+deliberately) is a thin presentation layer over an already-evaluated
+core, not the thing being evaluated. Every fix in the Improvement
+Changelog below was driven by either a measured evaluation result or a
+concrete failure observed by reading actual output content -- not
+assumptions about what might go wrong.
+
 ---
 
 ## Who has this problem, and why it's worth solving
