@@ -322,7 +322,7 @@ function Index() {
         {/* Results */}
         {result && !loading && (
           <section className="mt-16 animate-rise">
-            {(!result.safety_category || result.safety_category === "normal") ? (
+            {(!result.safety_category || result.safety_category.trim().toLowerCase() === "normal") ? (
               <>
                 <div className="mb-6 flex items-center gap-4">
                   <span className="h-px flex-1 bg-ink/10" />
