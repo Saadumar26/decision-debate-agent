@@ -161,6 +161,56 @@ function LoadingState() {
   );
 }
 
+function SafetyMessageCard({ content, context }: { content: string; context?: string }) {
+  return (
+    <article
+      className="animate-rise rounded-[28px] bg-card p-8 ring-1 ring-black/5 shadow-[0_24px_60px_-30px_rgba(59,55,48,0.18)] sm:p-10"
+      style={{ animationDelay: "0.15s" }}
+    >
+      <ReactMarkdown
+        components={{
+          h1: ({ children }) => (
+            <h3 className="font-serif text-2xl font-medium leading-tight text-ink sm:text-3xl">
+              {children}
+            </h3>
+          ),
+          h2: ({ children }) => (
+            <h3 className="font-serif text-2xl font-medium leading-tight text-ink sm:text-3xl">
+              {children}
+            </h3>
+          ),
+          h3: ({ children }) => (
+            <h3 className="font-serif text-2xl font-medium leading-tight text-ink sm:text-3xl">
+              {children}
+            </h3>
+          ),
+          p: ({ children }) => (
+            <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-soft">
+              {children}
+            </p>
+          ),
+          ul: ({ children }) => (
+            <ul className="mt-4 space-y-2 text-base leading-relaxed text-ink-soft">{children}</ul>
+          ),
+          li: ({ children }) => (
+            <li className="flex gap-2">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-plum/60" />
+              <span>{children}</span>
+            </li>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+      {context && (
+        <p className="mt-6 border-t border-ink/10 pt-4 text-xs leading-relaxed text-ink-soft/70">
+          Context retrieved: {context}
+        </p>
+      )}
+    </article>
+  );
+}
+
 function Index() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<DebateResponse | null>(null);
