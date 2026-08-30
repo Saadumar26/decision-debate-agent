@@ -1,0 +1,87 @@
+<svg width="100%" viewBox="0 0 680 730" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+<title>Decision Debate Agent system workflow</title>
+<desc>A user's decision enters a safety check. Sensitive queries get a fixed safety response and exit immediately. Normal queries proceed to memory retrieval, then three personas run in parallel, feeding a moderator, which is checked by a verification step that can loop back up to two times before the result is stored and returned.</desc>
+
+<rect x="0" y="0" width="680" height="730" fill="#ffffff"/>
+
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#73726c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- User's decision (gray) -->
+<rect x="240" y="20" width="200" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="42" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#444441">User's decision</text>
+<line x1="340" y1="64" x2="340" y2="118" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+
+<!-- Safety check (gray) -->
+<rect x="230" y="124" width="220" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="145" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#444441">Safety check</text>
+<text x="340" y="163" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#5F5E5A">crisis, medical, harmful?</text>
+
+<line x1="340" y1="180" x2="340" y2="234" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="350" y="212" font-size="12" fill="#5F5E5A">normal</text>
+
+<line x1="450" y1="152" x2="464" y2="152" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-coral)"/>
+
+<!-- Safety response (coral) -->
+<rect x="470" y="124" width="160" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="550" y="145" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#712B13">Safety response</text>
+<text x="550" y="163" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#993C1D">no debate given</text>
+<line x1="550" y1="180" x2="550" y2="204" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-coral)"/>
+
+<rect x="470" y="210" width="160" height="44" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="550" y="232" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#712B13">Response sent</text>
+
+<!-- Retrieve memory (teal) -->
+<rect x="230" y="240" width="220" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="261" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">Retrieve memory</text>
+<text x="340" y="279" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">similarity-thresholded</text>
+
+<line x1="300" y1="296" x2="150" y2="350" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="340" y1="296" x2="335" y2="350" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="380" y1="296" x2="520" y2="350" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+
+<!-- Personas (purple) -->
+<rect x="60" y="356" width="150" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="135" y="377" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">Optimist</text>
+<text x="135" y="395" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">upside case</text>
+
+<rect x="245" y="356" width="150" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="320" y="377" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">Skeptic</text>
+<text x="320" y="395" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">risk case</text>
+
+<rect x="430" y="356" width="150" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="505" y="377" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#3C3489">Analyst</text>
+<text x="505" y="395" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#534AB7">trade-offs and gaps</text>
+
+<line x1="150" y1="412" x2="300" y2="466" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="335" y1="412" x2="340" y2="466" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="520" y1="412" x2="380" y2="466" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+
+<!-- Moderator (teal) -->
+<rect x="230" y="472" width="220" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="493" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">Moderator</text>
+<text x="340" y="511" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">weighs personas, commits</text>
+<line x1="340" y1="528" x2="340" y2="562" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+
+<!-- Verification (teal) -->
+<rect x="230" y="568" width="220" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="589" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#085041">Verification</text>
+<text x="340" y="607" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0F6E56">balanced? actionable?</text>
+
+<path d="M230 596 L172 596 L172 500 L224 500" fill="none" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="20" y="552" font-size="12" fill="#5F5E5A">fail, retry</text>
+<text x="20" y="566" font-size="12" fill="#5F5E5A">up to 2x</text>
+
+<line x1="340" y1="624" x2="340" y2="658" stroke="#73726c" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="350" y="644" font-size="12" fill="#5F5E5A">pass</text>
+
+<!-- Store and return (gray) -->
+<rect x="230" y="664" width="220" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="686" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="600" fill="#444441">Store &amp; return result</text>
+</svg>

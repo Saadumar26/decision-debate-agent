@@ -34,29 +34,12 @@ hosted backend. For a working demo without local setup, see the
 
 ## How It Works (System Workflow)
 
-```
-User decision
-     |
-     v
-[1] Safety check  --------------------> crisis/medical/harmful?
-     |  (normal)                              |
-     v                                        v
-[2] Retrieve similar past decisions      Fixed safety response
-     |  (memory, similarity-thresholded)      (debate skipped entirely)
-     v
-[3] Optimist, Skeptic, Analyst run in PARALLEL
-     |  (three independent LLM calls, same input)
-     v
-[4] Moderator synthesizes all three into one recommendation
-     |
-     v
-[5] Verification checks the draft is genuinely balanced + actionable
-     |          |
-     | (fail)   | (pass)
-     v          v
-  back to [4]   [6] Store outcome to memory, return result
-  (max 2 retries)
-```
+![Decision Debate Agent system workflow](docs/architecture.svg)
+
+Gray nodes are entry/exit points, coral is the safety-bypass path, teal is
+the core pipeline, purple is the three personas running in parallel. The
+verification loop (bottom left) can send the Moderator back for another
+pass up to twice before the result is stored and returned.
 
 **Approach:** built agent-first, not UI-first -- the LangGraph pipeline,
 baseline comparison, and evaluation harness were built and tested from
