@@ -1,0 +1,8 @@
+langgraph
+chromadb
+streamlit
+google-genai
+scikit-learn
+flask
+flask-cors
+python-dotenv

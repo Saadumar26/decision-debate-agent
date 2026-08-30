@@ -1,0 +1,43 @@
+[
+  {
+    "id": "job_offer",
+    "category": "career",
+    "query": "Should I take a higher paying job offer in a new city, or stay at my current job with better growth prospects but lower pay?"
+  },
+  {
+    "id": "startup_vs_stable",
+    "category": "career",
+    "query": "I have a stable corporate job offer with good pay and benefits, and a much riskier offer to join an early-stage startup as employee number 5 with equity but a lower base salary. Which should I take?"
+  },
+  {
+    "id": "used_vs_new_car",
+    "category": "purchase",
+    "query": "I need a car for daily commuting. Should I buy a 3-year-old used sedan for cheaper, or a brand new car with a loan and warranty?"
+  },
+  {
+    "id": "grad_school",
+    "category": "education",
+    "query": "Should I go straight into a full-time job after my undergraduate degree, or spend two more years doing a master's degree in the same field?"
+  },
+  {
+    "id": "freelance_vs_fulltime",
+    "category": "career",
+    "query": "I currently have steady full-time employment. I'm considering quitting to freelance full-time, where income would be less predictable but I'd have more flexibility and higher potential upside."
+  },
+  {
+    "id": "rent_vs_buy",
+    "category": "finance",
+    "query": "I have enough savings for a down payment on a small apartment. Should I buy it now, or keep renting and invest the savings instead?"
+  },
+  {
+    "id": "relocate_for_partner",
+    "category": "life",
+    "query": "My partner has been offered a great job in another city. I would need to leave my current job and look for a new one there, with no guarantee of finding something similar. Should we move?"
+  },
+  {
+    "id": "ambiguous_hard_case",
+    "category": "hard_case",
+    "query": "I'm not sure if I should switch careers.",
+    "note": "Deliberately underspecified: no current field, no target field, no timeline, no financial context given. Tests whether the agent asks for missing information / flags the gap rather than fabricating specifics, versus the baseline which likely gives generic advice regardless."
+  }
+]
