@@ -99,5 +99,10 @@ def baseline():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("API_PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # Render (and most hosts) inject PORT dynamically; API_PORT stays as a
+    # local-dev override so `python api.py` still works unchanged on a
+    # laptop. debug=True is dev-only -- disabled here since debug mode's
+    # reloader and interactive traceback have no place in a public deploy.
+    port = int(os.environ.get("PORT", os.environ.get("API_PORT", 5000)))
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
